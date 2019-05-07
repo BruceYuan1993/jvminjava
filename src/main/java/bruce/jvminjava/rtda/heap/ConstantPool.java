@@ -3,12 +3,17 @@ package bruce.jvminjava.rtda.heap;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.org.apache.bcel.internal.classfile.ConstantFieldref;
+
 import bruce.jvminjava.classanalyzer.ClassFile;
+import bruce.jvminjava.classanalyzer.constant.ConstantClassInfo;
 import bruce.jvminjava.classanalyzer.constant.ConstantDoubleInfo;
+import bruce.jvminjava.classanalyzer.constant.ConstantFieldRefInfo;
 import bruce.jvminjava.classanalyzer.constant.ConstantFloatInfo;
 import bruce.jvminjava.classanalyzer.constant.ConstantInfo;
 import bruce.jvminjava.classanalyzer.constant.ConstantIntegerInfo;
 import bruce.jvminjava.classanalyzer.constant.ConstantLongInfo;
+import bruce.jvminjava.classanalyzer.constant.ConstantUtf8Info;
 
 public class ConstantPool {
     private Class klass;
@@ -39,6 +44,23 @@ public class ConstantPool {
                 o = ((ConstantDoubleInfo)constInfo).getValue();
                 i++;
                 break;
+            case ConstantInfo.CONSTANT_STRING_INFO:
+                o = ((ConstantUtf8Info)constInfo).getValue().toString();
+            case ConstantInfo.CONSTANT_CLASS_INFO:
+                // ((ConstantClassInfo)constInfo).getNameIndex().getValue()
+                ClassReference classRef = new ClassReference();
+                classRef.setClassName(klass.getName());
+                classRef.setConstantPool(this);
+                classRef.setKlass(klass);
+            case ConstantInfo.CONSTANT_FIELDREF_INFO:
+                FieldReference fieldRef = new FieldReference();
+                fieldRef.setClassName(klass.getName());
+                fieldRef.setConstantPool(this);
+                fieldRef.setKlass(klass);
+                
+                ((ConstantFieldRefInfo)constInfo).get
+                fieldRef.setName(name);
+                fieldRef.setDescriptor(descriptor);
             }
         }
         return consts;

@@ -27,6 +27,110 @@ public class Class {
     private int staticSlotCount;
     private Object staticVars;
 
+    public int getAccessFlags() {
+        return accessFlags;
+    }
+
+    public void setAccessFlags(int accessFlags) {
+        this.accessFlags = accessFlags;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSuperClassName() {
+        return superClassName;
+    }
+
+    public void setSuperClassName(String superClassName) {
+        this.superClassName = superClassName;
+    }
+
+    public List<String> getInterfaceNames() {
+        return interfaceNames;
+    }
+
+    public void setInterfaceNames(List<String> interfaceNames) {
+        this.interfaceNames = interfaceNames;
+    }
+
+    public List<Object> getConstantPool() {
+        return constantPool;
+    }
+
+    public void setConstantPool(List<Object> constantPool) {
+        this.constantPool = constantPool;
+    }
+
+    public List<Field> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<Field> fields) {
+        this.fields = fields;
+    }
+
+    public List<Method> getMethods() {
+        return methods;
+    }
+
+    public void setMethods(List<Method> methods) {
+        this.methods = methods;
+    }
+
+    public Object getLoader() {
+        return loader;
+    }
+
+    public void setLoader(Object loader) {
+        this.loader = loader;
+    }
+
+    public Class getSuperClass() {
+        return superClass;
+    }
+
+    public void setSuperClass(Class superClass) {
+        this.superClass = superClass;
+    }
+
+    public List<Class> getInterfaces() {
+        return interfaces;
+    }
+
+    public void setInterfaces(List<Class> interfaces) {
+        this.interfaces = interfaces;
+    }
+
+    public int getInstanceSlotCount() {
+        return instanceSlotCount;
+    }
+
+    public void setInstanceSlotCount(int instanceSlotCount) {
+        this.instanceSlotCount = instanceSlotCount;
+    }
+
+    public int getStaticSlotCount() {
+        return staticSlotCount;
+    }
+
+    public void setStaticSlotCount(int staticSlotCount) {
+        this.staticSlotCount = staticSlotCount;
+    }
+
+    public Object getStaticVars() {
+        return staticVars;
+    }
+
+    public void setStaticVars(Object staticVars) {
+        this.staticVars = staticVars;
+    }
+
     public Class(ClassFile cf) {
         this.accessFlags = (int) cf.getAccessFlags().getValue();
         this.name = readStringFromConstantPool(cf.getConstantPool(), cf.getClassName());
