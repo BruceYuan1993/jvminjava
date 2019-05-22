@@ -55,4 +55,18 @@ public class ClassMember {
     public boolean isSynthetic() {
         return 0 != (this.accessFlags & ACC_SYNTHETIC);
     }
+    
+    boolean isAccessibleTo(Class d) {
+        if (isPublic()) {
+            return true;
+        }
+        Class c = this.getKlass();
+        if (isProtected()) {
+            return d == c || d.isSubClassOf(c) || c.getPackageName().equals(d.getPackageName());
+        }
+        if (!isPrivate()) {
+            return c.getPackageName().equals(d.getPackageName());
+        }
+        return d == c;
+    }
 }

@@ -1,5 +1,7 @@
 package bruce.jvminjava.rtda;
 
+import bruce.jvminjava.rtda.heap.Object;
+
 
 public class LocalVars {
 	public Slot[] vars;

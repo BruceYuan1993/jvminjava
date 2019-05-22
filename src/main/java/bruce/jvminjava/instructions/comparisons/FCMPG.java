@@ -1,4 +1,4 @@
-package bruce.jvminjava.instructions.comparisons;
+ package bruce.jvminjava.instructions.comparisons;
 
 import bruce.jvminjava.instructions.base.NoOperandsInstruction;
 import bruce.jvminjava.rtda.Frame;

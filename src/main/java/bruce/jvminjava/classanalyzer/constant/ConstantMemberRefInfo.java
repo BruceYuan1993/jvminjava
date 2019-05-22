@@ -15,10 +15,10 @@ public abstract class ConstantMemberRefInfo extends ConstantInfo{
 	public void setClassIndex(U2 classIndex) {
 		this.classIndex = classIndex;
 	}
-	public U2 getNameAndValueIndex() {
+	public U2 getNameAndTypeIndex() {
 		return nameAndTypeIndex;
 	}
-	public void setNameAndValueIndex(U2 nameAndValueIndex) {
+	public void setNameAndTypeIndex(U2 nameAndValueIndex) {
 		this.nameAndTypeIndex = nameAndValueIndex;
 	}
 }

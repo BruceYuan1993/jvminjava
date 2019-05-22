@@ -22,4 +22,21 @@ public class SymbolicReference {
     public void setClassName(String className) {
         ClassName = className;
     }
+    
+    public Class resolvedClass() {
+        if (this.getKlass() == null) {
+            resolveClassRef();
+        }
+        return this.getKlass();
+    }
+
+    private void resolveClassRef() {
+        Class d = this.getConstantPool().getKlass();
+        Class c = d.getLoader().loadClass(getClassName());
+        if (!c.isAccessibleTo(d)) {
+            throw new RuntimeException("Illegal access error");
+        }
+        
+        setKlass(c);
+    }
 }

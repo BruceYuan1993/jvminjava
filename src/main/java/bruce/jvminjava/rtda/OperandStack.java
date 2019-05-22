@@ -1,5 +1,8 @@
 package bruce.jvminjava.rtda;
 
+import bruce.jvminjava.rtda.heap.Object;
+
+
 public class OperandStack {
 	public Slot[] slots;
 	int size;
@@ -42,12 +45,13 @@ public class OperandStack {
 	}
 	
 	public long popLong(){	 
+	    size -= 2;
 		int num1 = slots[size].getNum();
 		int num2 = slots[size+1].getNum();
 		long l1 = (num2&0x00000000ffffffffL)<<32;
 		long l2 = num1&0x00000000ffffffffL;
 		
-		size -= 2;
+		
 		return l1|l2;
 	}
 	
@@ -79,5 +83,9 @@ public class OperandStack {
 	public Slot popSlot() {
 	    size--;
 	    return slots[size];
+	}
+	
+	public int getSize() {
+	    return size;
 	}
 }

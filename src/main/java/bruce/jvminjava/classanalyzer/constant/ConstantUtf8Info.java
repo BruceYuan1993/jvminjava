@@ -16,6 +16,9 @@ public class ConstantUtf8Info extends ConstantInfo{
 
 	@Override
 	public String toString() {
+	    if (data == null || data.length == 0) {
+	        return null;
+	    }
 		try {
 			return new String(decodeMUtf8(data), "utf8");
 		} catch (UnsupportedEncodingException e) {

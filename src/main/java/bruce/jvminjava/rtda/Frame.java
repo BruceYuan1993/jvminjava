@@ -1,5 +1,7 @@
 package bruce.jvminjava.rtda;
 
+import bruce.jvminjava.rtda.heap.Method;
+
 public class Frame {
 	public Thread getThread() {
         return thread;
@@ -20,16 +22,27 @@ public class Frame {
     private Frame lower;
 	private LocalVars localVars;
 	private Thread thread;
+	private OperandStack operandStack;
 	private int nextPC;
+	private Method method;
 	
-	public Frame(Thread thread, int maxLocals, int maxStack) {
-        super();
-        this.thread = thread;
-        localVars = new LocalVars(maxLocals);
-        operandStack = new OperandStack(maxStack);
+	public Method getMethod() {
+        return method;
     }
 
-    private OperandStack operandStack;
+    public void setMethod(Method method) {
+        this.method = method;
+    }
+
+    public Frame(Thread thread, Method method) {
+        super();
+        this.thread = thread;
+        this.method = method;
+        localVars = new LocalVars(method.getMaxLocals());
+        operandStack = new OperandStack(method.getMaxStack());
+    }
+
+    
 	
 	public LocalVars getLocalVars() {
         return localVars;

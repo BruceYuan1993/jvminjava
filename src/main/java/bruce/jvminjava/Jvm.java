@@ -1,22 +1,24 @@
 package bruce.jvminjava;
 
-import bruce.jvminjava.rtda.LocalVars;
+import bruce.jvminjava.classpath.Classpath;
+import bruce.jvminjava.instructions.Interpreter;
+import bruce.jvminjava.rtda.heap.ClassLoader;
+import bruce.jvminjava.rtda.heap.Method;
 
 public class Jvm {
 	public void start(){
-//	    Frame frame = new Frame(100, 100);
-//	    testLocalVars(frame.getLocalVars());
-	}
-	
-	private void testLocalVars(LocalVars vars) {
-	    vars.setInt(0, 100);
-	    vars.setInt(1, -100);
-	    vars.setLong(2, 299792458);
-	    vars.setLong(4, 299792458);
+	    String className = "bruce.jvminjava.MyObject";
+	    Classpath classPath = new Classpath("C:\\Program Files\\Java\\jre1.8.0_211","D:\\jvm\\jvminjava\\target\\classes");
+	    ClassLoader classLaoder = new ClassLoader(classPath);
 	    
-	    
-	    System.out.println(vars.getInt(1));
-	    System.out.println(vars.getLong(2));
-	    
+	    className = className.replace(".", "/");
+	    bruce.jvminjava.rtda.heap.Class mainClass = classLaoder.loadClass(className);
+	    Method mainMethod = mainClass.getMainMethod();
+	    if (mainMethod != null) {
+            Interpreter interpreter = new Interpreter();
+            interpreter.interpret(mainMethod);
+	    } else {
+	        System.out.println("Main method not found in class " + className);
+	    }
 	}
 }

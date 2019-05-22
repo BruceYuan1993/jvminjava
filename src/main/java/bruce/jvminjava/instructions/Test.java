@@ -21,8 +21,8 @@ public class Test {
         
         for (ClassMember method : cf.getMethods()) {
             if (readStringFromConstantPool(constantPool, method.getNameIndex()).equals("main")){
-                Interpreter interpreter = new Interpreter();
-                interpreter.interpret(method);
+                //Interpreter interpreter = new Interpreter();
+                //interpreter.interpret(method);
             }
         }
     }

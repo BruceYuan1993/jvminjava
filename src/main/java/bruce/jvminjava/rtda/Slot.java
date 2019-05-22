@@ -1,4 +1,6 @@
 package bruce.jvminjava.rtda;
+import bruce.jvminjava.rtda.heap.Object;
+
 
 public class Slot {
 	private int num;

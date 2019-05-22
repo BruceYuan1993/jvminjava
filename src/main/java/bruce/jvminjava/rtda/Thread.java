@@ -1,5 +1,6 @@
 package bruce.jvminjava.rtda;
 
+import bruce.jvminjava.rtda.heap.Method;
 
 public class Thread {
 	private int pc;
@@ -29,8 +30,8 @@ public class Thread {
 	}
 	
 	
-	public Frame newFrame(int maxLocals, int maxStack) {
-        return new Frame(this, maxLocals, maxStack);
+	public Frame newFrame(Method method) {
+        return new Frame(this, method);
 	}
 	
 }
