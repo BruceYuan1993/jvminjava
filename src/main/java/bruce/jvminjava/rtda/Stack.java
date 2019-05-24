@@ -44,4 +44,9 @@ public class Stack {
 		
 		return top;
 	}
+
+    public boolean isEmpty() {
+        // TODO Auto-generated method stub
+        return top == null;
+    }
 }

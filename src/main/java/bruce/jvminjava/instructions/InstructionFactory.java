@@ -12,7 +12,9 @@ import bruce.jvminjava.instructions.references.CHECK_CAST;
 import bruce.jvminjava.instructions.references.GET_FIELD;
 import bruce.jvminjava.instructions.references.GET_STATIC;
 import bruce.jvminjava.instructions.references.INSTANCE_OF;
+import bruce.jvminjava.instructions.references.INVOKE_INTERFACE;
 import bruce.jvminjava.instructions.references.INVOKE_SPECIAL;
+import bruce.jvminjava.instructions.references.INVOKE_STATIC;
 import bruce.jvminjava.instructions.references.INVOKE_VIRTUAL;
 import bruce.jvminjava.instructions.references.LDC;
 import bruce.jvminjava.instructions.references.LDC2_W;
@@ -371,18 +373,18 @@ public class InstructionFactory {
             return new TABLE_SWITCH();
         case 0xab:
             return new LOOKUP_SWITCH();
-        // case 0xac:
-        //  return ireturn
-        // case 0xad:
-        //  return lreturn
-        // case 0xae:
-        //  return freturn
-        // case 0xaf:
-        //  return dreturn
-        // case 0xb0:
-        //  return areturn
-        // case 0xb1:
-        //  return _return
+         case 0xac:
+          return new IRETURN();
+         case 0xad:
+          return new LRETURN();
+         case 0xae:
+          return new FRETURN();
+         case 0xaf:
+          return new DRETURN();
+         case 0xb0:
+          return new ARETURN();
+         case 0xb1:
+          return new RETURN();
           case 0xb2:
             return new GET_STATIC();
          case 0xb3:
@@ -395,10 +397,10 @@ public class InstructionFactory {
              return new INVOKE_VIRTUAL();
          case 0xb7:
              return new INVOKE_SPECIAL();
-        // case 0xb8:
-        //  return new INVOKE_STATIC();
-        // case 0xb9:
-        //  return new INVOKE_INTERFACE();
+         case 0xb8:
+             return new INVOKE_STATIC();
+         case 0xb9:
+             return new INVOKE_INTERFACE();
         // case 0xba:
         //  return new INVOKE_DYNAMIC();
          case 0xbb:

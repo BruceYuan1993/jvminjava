@@ -1,5 +1,6 @@
 package bruce.jvminjava.instructions.references;
 
+import bruce.jvminjava.instructions.base.ClassInitLogic;
 import bruce.jvminjava.instructions.base.Index16Instruction;
 import bruce.jvminjava.rtda.Frame;
 import bruce.jvminjava.rtda.OperandStack;
@@ -20,12 +21,19 @@ public class PUT_STATIC extends Index16Instruction{
         FieldReference fieldRef = (FieldReference) cp.getConstant(getIndex());
         Field field = fieldRef.resolvedField();
         bruce.jvminjava.rtda.heap.Class klass = field.getKlass();
+        
+        if (!klass.initStarted()) {
+            frame.revertNextPC();
+            ClassInitLogic.initClass(frame.getThread(), klass);
+            return;
+        }
+        
         if (!field.isStatic()) {
             throw new RuntimeException("java.lang.IncompatibleClassChangeError");
         }
         
         if (field.isFinal()) {
-            if (currentClass != klass || currentMethod.getName() != "<clinit>") {
+            if (currentClass != klass || !currentMethod.getName().equals("<clinit>") ) {
                 throw new RuntimeException("java.lang.IllegalAccessError");
             }
         }

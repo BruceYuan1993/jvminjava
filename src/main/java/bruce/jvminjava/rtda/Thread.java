@@ -29,9 +29,18 @@ public class Thread {
 		return this.frames.top();
 	}
 	
+	public Frame topFrame() {
+        return this.frames.top();
+    }
+	
 	
 	public Frame newFrame(Method method) {
         return new Frame(this, method);
 	}
+
+    public boolean isStackEmpty() {
+        // TODO Auto-generated method stub
+        return this.frames.isEmpty();
+    }
 	
 }

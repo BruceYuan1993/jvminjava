@@ -6,7 +6,6 @@ public abstract class BranchInstruction implements Instruction{
     public void fetchOperands(BytecodeReader reader) {
         // TODO Auto-generated method stub
         this.offset = reader.readInt16();
-        System.out.println("GOTO offset --> " + this.offset);
     }
     public int getOffset() {
         return offset;

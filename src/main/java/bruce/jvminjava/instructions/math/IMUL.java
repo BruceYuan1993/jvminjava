@@ -10,8 +10,8 @@ public class IMUL extends NoOperandsInstruction{
     public void execute(Frame frame) {
         // TODO Auto-generated method stub
         OperandStack stack = frame.getOperandStack();
-        int v1 = stack.popInt();
         int v2 = stack.popInt();
+        int v1 = stack.popInt();
         
         int result = v1 * v2;
         stack.pushInt(result);

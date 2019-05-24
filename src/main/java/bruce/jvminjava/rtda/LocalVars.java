@@ -60,4 +60,9 @@ public class LocalVars {
 	public Object getRef(int index){	 
 		return vars[index].getRef();
 	}
+
+    public void setSlot(int index, Slot slot) {
+        // TODO Auto-generated method stub
+        vars[index] = slot;
+    }
 }

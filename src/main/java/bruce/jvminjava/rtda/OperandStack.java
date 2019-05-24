@@ -76,7 +76,10 @@ public class OperandStack {
 	}
 	
 	public void pushSlot(Slot slot) {
-	    slots[size] = slot;
+	    Slot copy = new Slot();
+	    copy.setNum(slot.getNum());
+	    copy.setRef(slot.getRef());
+	    slots[size] = copy;
 	    size++;
 	}
 	
@@ -88,4 +91,10 @@ public class OperandStack {
 	public int getSize() {
 	    return size;
 	}
+
+
+    public Object getRefFromTop(int n) {
+        // TODO Auto-generated method stub
+        return slots[size -1 - n].getRef();
+    }
 }

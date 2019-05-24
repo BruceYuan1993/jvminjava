@@ -10,8 +10,8 @@ public class IREM extends NoOperandsInstruction {
     public void execute(Frame frame) {
         // TODO Auto-generated method stub
         OperandStack stack = frame.getOperandStack();
-        int v1 = stack.popInt();
         int v2 = stack.popInt();
+        int v1 = stack.popInt();
         if (v2 == 0) {
             throw new RuntimeException("/ by zero");
         }

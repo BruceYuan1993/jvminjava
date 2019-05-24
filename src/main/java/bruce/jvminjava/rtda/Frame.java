@@ -67,6 +67,11 @@ public class Frame {
 	public void setLower(Frame lower) {
 		this.lower = lower;
 	}
+
+    public void revertNextPC() {
+        // TODO Auto-generated method stub
+        nextPC = thread.getPc();
+    }
 	
 	
 }

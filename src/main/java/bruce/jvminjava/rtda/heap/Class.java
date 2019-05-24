@@ -201,9 +201,27 @@ public class Class {
                 m.setMaxStack((int)codeAttr.getMaxStack().getValue());
                 m.setCode(ClassFileHelper.converCodeListToBytes(codeAttr.getCodes()));
             }
+            m.setArgSlotCount(calcArgSlotCount(m));
             methods.add(m);
         }
         return methods;
+    }
+    
+    public int calcArgSlotCount(Method method) {
+        int argSlotCount = 0;
+        MethodDescriptorParser parser = new MethodDescriptorParser();
+        MethodDescriptor parsedDescriptor = parser.parse(method.getDescriptor());
+        for (String paramType : parsedDescriptor.getParameterTypes()) {
+            argSlotCount++;
+            if (paramType.equals("J") || paramType.equals("D")) {
+                argSlotCount++;
+            }
+        }
+        
+        if (!method.isStatic()) {
+            argSlotCount++;
+        }
+        return argSlotCount;
     }
 
     public boolean isPublic() {
@@ -245,7 +263,7 @@ public class Class {
         return isPublic() || getPackageName().equals(c.getPackageName());
     }
     
-    boolean isSubClassOf(Class c) {
+    public boolean isSubClassOf(Class c) {
         for (Class k = this.getSuperClass(); k != null; k = k.getSuperClass()) {
             if (k == c) {
                 return true;
@@ -266,7 +284,7 @@ public class Class {
         }
     }
     
-    private boolean isImplements(Class iface) {
+    public boolean isImplements(Class iface) {
         for (Class c = this; c != null; c = c.getSuperClass()) {
             for (Class i :c.getInterfaces()) {
                 if (i == iface || i.isSubInterfaceOf(iface)) {
@@ -303,5 +321,23 @@ public class Class {
         }
         return null;
     }
+
+    public boolean isSuperClassOf(Class other) {
+        // TODO Auto-generated method stub
+        return other.isSubClassOf(this);
+    }
     
+    private boolean initStarted = false;
+    public boolean initStarted() {
+        return initStarted;
+    }
+    
+    public void startInit() {
+        initStarted = true;
+    }
+
+    public Method getClinitMethod() {
+        // TODO Auto-generated method stub
+        return getStaticMethod("<clinit>", "()V");
+    }
 }

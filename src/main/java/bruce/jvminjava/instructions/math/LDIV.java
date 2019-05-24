@@ -10,8 +10,8 @@ public class LDIV extends NoOperandsInstruction{
     public void execute(Frame frame) {
         // TODO Auto-generated method stub
         OperandStack stack = frame.getOperandStack();
-        long v1 = stack.popLong();
         long v2 = stack.popLong();
+        long v1 = stack.popLong();
         if (v2 == 0) {
             throw new RuntimeException("/ by zero");
         }

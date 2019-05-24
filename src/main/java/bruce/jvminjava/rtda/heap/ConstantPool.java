@@ -54,13 +54,14 @@ public class ConstantPool {
                 break;
             case ConstantInfo.CONSTANT_LONG_INFO:
                 o = ((ConstantLongInfo) constInfo).getValue();
-                i++;
                 consts.set(i, o);
+                i++;
+                
                 break;
             case ConstantInfo.CONSTANT_DOUBLE_INFO:
                 o = ((ConstantDoubleInfo) constInfo).getValue();
-                i++;
                 consts.set(i, o);
+                i++;
                 break;
             case ConstantInfo.CONSTANT_STRING_INFO:
                 ConstantStringInfo stringInfo = (ConstantStringInfo) constInfo;

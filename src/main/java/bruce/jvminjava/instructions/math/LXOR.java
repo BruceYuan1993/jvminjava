@@ -10,11 +10,11 @@ public class LXOR extends NoOperandsInstruction{
     public void execute(Frame frame) {
         // TODO Auto-generated method stub
         OperandStack stack = frame.getOperandStack();
-        int v1 = stack.popInt();
-        int v2 = stack.popInt();
+        long v1 = stack.popLong();
+        long v2 = stack.popLong();
         
-        int result = v1 ^ v2;
-        stack.pushInt(result);
+        long result = v1 ^ v2;
+        stack.pushLong(result);
     }
 
 }
