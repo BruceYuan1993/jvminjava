@@ -36,7 +36,7 @@ public class Interpreter {
             Instruction inst = InstructionFactory.newInstruction(opCode);
             inst.fetchOperands(reader);
             frame.setNextPC(reader.getPc());
-            //logInstruction(frame, inst);
+//            logInstruction(frame, inst);
             
 //            System.out.printf("stack:%2d\n", frame.getOperandStack().getSize());
 //            System.out.printf("pc:%2d inst:%s\n", pc, inst.getClass().getSimpleName());
@@ -60,13 +60,13 @@ public class Interpreter {
         }
     }
     
-    private void logInstruction(Frame frame, Instruction inst) {
-        Method method = frame.getMethod();
-        String className = method.getKlass().getName();
-        String methodName = method.getName();
-        int pc = frame.getThread().getPc() ;
-        
-        System.out.println(className + "." + methodName + "() # " + pc +" " 
-                + inst.getClass().getSimpleName());
-    }
+//    private void logInstruction(Frame frame, Instruction inst) {
+//        Method method = frame.getMethod();
+//        String className = method.getKlass().getName();
+//        String methodName = method.getName();
+//        int pc = frame.getThread().getPc() ;
+//        
+//        System.out.println(className + "." + methodName + "() # " + pc +" " 
+//                + inst.getClass().getSimpleName());
+//    }
 }

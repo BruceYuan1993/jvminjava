@@ -1,5 +1,8 @@
 package bruce.jvminjava.instructions;
 
+import bruce.jvminjava.instructions.array.ANEW_ARRAY;
+import bruce.jvminjava.instructions.array.ARRAY_LENGTH;
+import bruce.jvminjava.instructions.array.*;
 import bruce.jvminjava.instructions.base.*;
 import bruce.jvminjava.instructions.comparisons.*;
 import bruce.jvminjava.instructions.constants.*;
@@ -121,22 +124,22 @@ public class InstructionFactory {
             return new ALOAD_2();
         case 0x2d:
             return new ALOAD_3();
-        // case 0x2e:
-        //  return inew ALOAD
-        // case 0x2f:
-        //  return lnew ALOAD
-        // case 0x30:
-        //  return fnew ALOAD
-        // case 0x31:
-        //  return dnew ALOAD
-        // case 0x32:
-        //  return anew ALOAD
-        // case 0x33:
-        //  return bnew ALOAD
-        // case 0x34:
-        //  return cnew ALOAD
-        // case 0x35:
-        //  return snew ALOAD
+         case 0x2e:
+          return new IALOAD();
+         case 0x2f:
+          return new LALOAD();
+         case 0x30:
+          return new FALOAD();
+         case 0x31:
+          return new DALOAD();
+         case 0x32:
+          return new AALOAD();
+         case 0x33:
+          return new BALOAD();
+         case 0x34:
+          return new CALOAD();
+         case 0x35:
+          return new SALOAD();
         case 0x36:
             return new ISTORE();
         case 0x37:
@@ -187,22 +190,22 @@ public class InstructionFactory {
             return new ASTORE_2();
         case 0x4e:
             return new ASTORE_3();
-        // case 0x4f:
-        //  return inew ASTORE
-        // case 0x50:
-        //  return lnew ASTORE
-        // case 0x51:
-        //  return fnew ASTORE
-        // case 0x52:
-        //  return dnew ASTORE
-        // case 0x53:
-        //  return anew ASTORE
-        // case 0x54:
-        //  return bnew ASTORE
-        // case 0x55:
-        //  return cnew ASTORE
-        // case 0x56:
-        //  return snew ASTORE
+         case 0x4f:
+          return new IASTORE();
+         case 0x50:
+          return new LASTORE();
+         case 0x51:
+          return new FASTORE();
+         case 0x52:
+          return new DASTORE();
+         case 0x53:
+          return new AASTORE();
+         case 0x54:
+          return new BASTORE();
+         case 0x55:
+          return new CASTORE();
+         case 0x56:
+          return new SASTORE();
         case 0x57:
             return new POP();
         case 0x58:
@@ -405,12 +408,12 @@ public class InstructionFactory {
         //  return new INVOKE_DYNAMIC();
          case 0xbb:
           return new NEW();
-        // case 0xbc:
-        //  return new NEW_ARRAY();
-        // case 0xbd:
-        //  return new ANEW_ARRAY();
-        // case 0xbe:
-        //  return arraylength
+         case 0xbc:
+          return new NEW_ARRAY();
+         case 0xbd:
+          return new ANEW_ARRAY();
+         case 0xbe:
+          return new ARRAY_LENGTH();
         // case 0xbf:
         //  return athrow
          case 0xc0:
@@ -423,8 +426,8 @@ public class InstructionFactory {
         //  return monitorexit
         case 0xc4:
             return new WIDE();
-        // case 0xc5:
-        //  return new MULTI_ANEW_ARRAY();
+         case 0xc5:
+          return new MULTI_ANEW_ARRAY();
         case 0xc6:
             return new IFNULL();
         case 0xc7:

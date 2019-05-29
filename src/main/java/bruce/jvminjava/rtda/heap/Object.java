@@ -1,8 +1,15 @@
 package bruce.jvminjava.rtda.heap;
 
+
 public class Object {
-    Class klass;
-    Slots fields;
+    protected Class klass;
+    protected java.lang.Object data;
+    
+    public Object(Class klass, java.lang.Object data) {
+        this.klass = klass;
+        this.data = data;
+    }
+
     public Class getKlass() {
         return klass;
     }
@@ -11,16 +18,11 @@ public class Object {
     }
 
     public Slots getFields() {
-        return fields;
+        return (Slots)data;
     }
     public void setFields(Slots fields) {
-        this.fields = fields;
+        this.data = fields;
     }
-    public Object(Class klass) {
-        this.klass = klass;
-        this.fields = new Slots(klass.getInstanceSlotCount());
-    } 
-    
     
     public boolean isInstanceOf(Class klass) {
         return klass.isAssignableFrom(this.klass);

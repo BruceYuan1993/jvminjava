@@ -1,7 +1,9 @@
 package bruce.jvminjava.rtda.heap;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import bruce.jvminjava.classanalyzer.ClassFile;
@@ -134,7 +136,10 @@ public class Class {
     public void setStaticVars(Slots staticVars) {
         this.staticVars = staticVars;
     }
-
+    public Class() {
+        
+    }
+    
     public Class(ClassFile cf) {
         this.accessFlags = (int) cf.getAccessFlags().getValue();
         ConstantClassInfo className = (ConstantClassInfo) cf.getConstantPool().get((int)cf.getClassName().getValue());
@@ -277,11 +282,36 @@ public class Class {
         if (other == this) {
             return true;
         }
-        if (!this.isInterface()) {
-            return other.isSubClassOf(this);
+        
+        if (!other.isArray()) {
+            if (!other.isInterface()) {
+                if (!this.isInterface()) {
+                    return other.isSubClassOf(this);
+                } else {
+                    return other.isImplements(this);
+                }
+            } else {
+                if (!this.isInterface()) {
+                    return this.isJlObject();
+                } else {
+                    return this.isSubInterfaceOf(other);
+                }
+            }
         } else {
-            return other.isImplements(this);
+            if (!this.isArray()) {
+                if (!this.isArray()) {
+                    return this.isJlObject();
+                } else {
+                    return this.isJlCloneable() || this.isJioSerializable();
+                }
+            } else {
+                Class sc = other.getCompomentClass();
+                Class tc = this.getCompomentClass();
+                return sc == tc || tc.isAssignableFrom(sc);
+            }
         }
+        
+        
     }
     
     public boolean isImplements(Class iface) {
@@ -339,5 +369,116 @@ public class Class {
     public Method getClinitMethod() {
         // TODO Auto-generated method stub
         return getStaticMethod("<clinit>", "()V");
+    }
+    
+    
+    public boolean isArray() {
+        return this.name.charAt(0) == '[';
+    }
+    
+    public Object newObject() {
+        Object obj = new Object(this, new Slots(getInstanceSlotCount()));
+        return obj;
+    } 
+    
+    public Array newArray(int count) {
+        if (!this.isArray()) {
+            throw new RuntimeException("Not array class: " + name);
+        }
+        
+        switch (name) {
+            case "[Z":
+                return new Array(this, new byte[count]);
+            case "[B":
+                return new Array(this, new byte[count]);
+            case "[C":
+                return new Array(this, new char[count]);
+            case "[S":
+                return new Array(this, new char[count]);
+            case "[I":
+                return new Array(this, new int[count]);
+            case "[J":
+                return new Array(this, new long[count]);
+            case "[F":
+                return new Array(this, new float[count]);
+            case "[D":
+                return new Array(this, new double[count]);
+            default:
+                return new Array(this, new Object[count]);
+        }
+    }
+    
+    public Class getArrayClass() {
+        String arrayClassName = getArrayClassName();
+        return loader.loadClass(arrayClassName);
+    }
+
+    private String getArrayClassName() {
+        return "[" + toDescriptor(this.name);
+    }
+
+    
+    private static Map<String, String> primitiveTypes = new HashMap<>();
+    static {
+        primitiveTypes.put("void", "V");
+        primitiveTypes.put("boolean", "Z");
+        primitiveTypes.put("byte", "B");
+        primitiveTypes.put("short", "S");
+        primitiveTypes.put("int", "I");
+        primitiveTypes.put("long", "J");
+        primitiveTypes.put("char", "C");
+        primitiveTypes.put("float", "F");
+        primitiveTypes.put("double", "D");
+    }
+    
+    private String toDescriptor(String className) {
+        // TODO Auto-generated method stub
+        if (className.charAt(0) == '[') {
+            return className;
+        }
+        if (primitiveTypes.containsKey(className)) {
+            primitiveTypes.get(className);
+        }
+        return "L" + className + ";";
+    }
+
+   public Class getCompomentClass() {
+        String compontentClassName = getCompontentClassName(name);
+        return loader.loadClass(compontentClassName);
+    }
+
+    private String getCompontentClassName(String name) {
+        // TODO Auto-generated method stub
+        if (name.charAt(0) == '[') {
+            String compontentTypeDescriptor = name.substring(1);
+            return toClassName(compontentTypeDescriptor);
+        }
+        throw new RuntimeException("Not array: " + name);
+    }
+
+    private String toClassName(String descriptor) {
+        // TODO Auto-generated method stub
+        if (descriptor.charAt(0) == '[') {
+            return descriptor;
+        }
+        if (descriptor.charAt(0) == 'L') {
+            return descriptor.substring(1, descriptor.length() - 1);
+        }
+        for (Map.Entry<String, String> entry : primitiveTypes.entrySet()) {
+            if (entry.getValue().equals(descriptor)) {
+                return entry.getKey();
+            }
+        }
+        throw new RuntimeException("Invalid descriptor: " + name);
+    }
+    
+    private boolean isJlObject() {
+        return "java/lang/Object".equals(this.name);
+    }
+    private boolean isJlCloneable() {
+        return "java/lang/Cloneable".equals(this.name);
+    }
+    private boolean isJioSerializable() {
+        return "java/io/Serializable".equals(this.name);
     }
 }

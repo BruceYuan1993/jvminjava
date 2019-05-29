@@ -25,7 +25,7 @@ public class NEW extends Index16Instruction{
             throw new RuntimeException("Instantiation Error");
         }
         
-        Object obj = new Object(klass);
+        Object obj = klass.newObject();
         frame.getOperandStack().pushRef(obj);
     }
 

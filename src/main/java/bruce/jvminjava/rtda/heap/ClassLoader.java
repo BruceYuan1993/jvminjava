@@ -23,7 +23,26 @@ public class ClassLoader {
         if (this.classMap.containsKey(name)) {
             return this.classMap.get(name);
         }
+        if (name.charAt(0) == '[') {
+            return loadArrayClass(name);
+        }
         return loadNonArrayClass(name);
+    }
+
+    private Class loadArrayClass(String name) {
+        // TODO Auto-generated method stub
+        Class klass = new Class();
+        klass.setAccessFlags(AccessFlags.ACC_PUBLIC);
+        klass.setName(name);
+        klass.setLoader(this);
+        klass.startInit();
+        klass.setSuperClass(loadClass("java/lang/Object"));
+        List<Class> interfaces = new ArrayList<>();
+        interfaces.add(loadClass("java/lang/Cloneable"));
+        interfaces.add(loadClass("java/io/Serializable"));
+        klass.setInterfaces(interfaces);
+        classMap.put(name, klass);
+        return klass;
     }
 
     private Class loadNonArrayClass(String name) {
