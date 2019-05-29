@@ -4,14 +4,22 @@ import bruce.jvminjava.instructions.base.BytecodeReader;
 import bruce.jvminjava.instructions.base.Instruction;
 import bruce.jvminjava.rtda.Frame;
 import bruce.jvminjava.rtda.Thread;
+import bruce.jvminjava.rtda.heap.Array;
+import bruce.jvminjava.rtda.heap.Class;
+import bruce.jvminjava.rtda.heap.ClassLoader;
 import bruce.jvminjava.rtda.heap.Method;
+import bruce.jvminjava.rtda.heap.Object;
+import bruce.jvminjava.rtda.heap.StringPool;
 
 public class Interpreter {
-    public void interpret(Method method) {
+    public void interpret(Method method, String[] args) {
         Thread thread = new Thread();
         Frame frame = thread.newFrame(method);
         thread.pushFrame(frame);
         
+        
+        Array argsArr = createArgsArray(method.getKlass().getLoader(), args);
+        frame.getLocalVars().setRef(0, argsArr);
         
         try {
             loop(thread);
@@ -69,4 +77,16 @@ public class Interpreter {
 //        System.out.println(className + "." + methodName + "() # " + pc +" " 
 //                + inst.getClass().getSimpleName());
 //    }
+    
+    private Array createArgsArray(ClassLoader loader, String[] args) {
+        Class strClass = loader.loadClass("java/lang/String");
+        Array argsArr = strClass.getArrayClass().newArray(args.length);
+        Object[] jArgs = argsArr.getRefs();
+        int i = 0;
+        for (String s : args) {
+            jArgs[i] = StringPool.INSTANCE.jString(loader, s);
+            i++;
+        }
+        return argsArr;
+    }
 }

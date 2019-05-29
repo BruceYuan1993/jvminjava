@@ -27,4 +27,16 @@ public class Object {
     public boolean isInstanceOf(Class klass) {
         return klass.isAssignableFrom(this.klass);
     }
+
+    public void setRefVar(String name, String descriptor, Object ref) {
+        Field f = this.getKlass().getField(name, descriptor, false);
+        Slots slots = (Slots) this.data; 
+        slots.setRef(f.getSlotId(), ref);
+    }
+    
+    public Object getRefVar(String name, String descriptor) {
+        Field f = this.getKlass().getField(name, descriptor, false);
+        Slots slots = (Slots) this.data; 
+        return slots.getRef(f.getSlotId());
+    }
 }

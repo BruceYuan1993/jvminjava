@@ -47,10 +47,16 @@ public class ClassLoader {
 
     private Class loadNonArrayClass(String name) {
         // TODO Auto-generated method stub
-        Class klass = defineClass(readClass(name));
-        link(klass);
-        System.out.println("Load " +  name);
-        return klass; 
+        try {
+            Class klass = defineClass(readClass(name));
+            link(klass);
+            System.out.println("Load " +  name);
+            return klass; 
+        } catch (Exception e) {
+            System.out.println("Load failed: " + name);
+            throw e;
+        }
+        
     }
     
     private void link(Class klass) {
@@ -148,7 +154,9 @@ public class ClassLoader {
                 break;
             case "Ljava/lang/String;":
             {
-                //
+                String val = (String)cp.getConstant(cpIndex);
+                Object jStr = StringPool.INSTANCE.jString(klass.getLoader(), val);
+                slots.setRef(slotId, jStr);
             }
                 break;
             default:

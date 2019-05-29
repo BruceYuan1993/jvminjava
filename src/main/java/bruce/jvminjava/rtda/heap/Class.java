@@ -481,4 +481,17 @@ public class Class {
     private boolean isJioSerializable() {
         return "java/io/Serializable".equals(this.name);
     }
+
+    public Field getField(String name, String descriptor, boolean isStatic) {
+        for (Class c = this; c != null; c = c.getSuperClass()) {
+            for (Field f : c.getFields()) {
+                if (f.isStatic() == isStatic &&
+                        f.getName().equals(name) &&
+                        f.getDescriptor().equals(descriptor)) {
+                    return f;
+                }
+            }
+        }
+        return null;
+    }
 }

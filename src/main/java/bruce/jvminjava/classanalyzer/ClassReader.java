@@ -21,6 +21,7 @@ import bruce.jvminjava.classanalyzer.constant.ConstantFloatInfo;
 import bruce.jvminjava.classanalyzer.constant.ConstantInfo;
 import bruce.jvminjava.classanalyzer.constant.ConstantIntegerInfo;
 import bruce.jvminjava.classanalyzer.constant.ConstantInterfaceMethodRefInfo;
+import bruce.jvminjava.classanalyzer.constant.ConstantInvokeDynamicInfo;
 import bruce.jvminjava.classanalyzer.constant.ConstantLongInfo;
 import bruce.jvminjava.classanalyzer.constant.ConstantMethodHandleInfo;
 import bruce.jvminjava.classanalyzer.constant.ConstantMethodRefInfo;
@@ -127,8 +128,12 @@ public class ClassReader {
             {
                 actualtype = genericType;
             }
-            list.add(parseChild((Class<? extends ClassElement>)actualtype));
+            if (actualtype == null) {
 
+                throw new RuntimeException("cannot find actualtype for genericType" + genericType);
+            }
+            list.add(parseChild((Class<? extends ClassElement>)actualtype));
+            
             if (actualtype == ConstantDoubleInfo.class
                     || actualtype == ConstantLongInfo.class){
                 index++;
@@ -214,6 +219,7 @@ public class ClassReader {
                 result = ConstantMethodTypeInfo.class;
                 break;
             case ConstantInfo.CONSTANT_INVOKEDYNAMIC_INFO:
+                result = ConstantInvokeDynamicInfo.class;
                 break;
             default:
                 break;

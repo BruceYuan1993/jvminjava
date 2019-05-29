@@ -78,7 +78,6 @@ public class ConstantPool {
                 ClassReference classRef = new ClassReference();
                 classRef.setClassName(name1);
                 classRef.setConstantPool(this);
-                //classRef.setKlass(klass);
                 consts.set(i, classRef);
                 break;
             case ConstantInfo.CONSTANT_FIELDREF_INFO:{
@@ -88,7 +87,6 @@ public class ConstantPool {
                 FieldReference fieldRef = new FieldReference();
                 fieldRef.setClassName(className);
                 fieldRef.setConstantPool(this);
-                //fieldRef.setKlass(klass);
                 U2 u2 = ((ConstantFieldRefInfo) constInfo).getNameAndTypeIndex();
                 ConstantNameAndTypeInfo nameAndType = (ConstantNameAndTypeInfo) cp.get((int) u2.getValue());
                 String name = Class.readStringFromConstantPool(cp, nameAndType.getNameIndex());
@@ -105,7 +103,6 @@ public class ConstantPool {
                 MethodReference methodRef = new MethodReference();
                 methodRef.setClassName(className);
                 methodRef.setConstantPool(this);
-                // methodRef.setKlass(klass);
                 U2 index = ((ConstantMethodRefInfo) constInfo).getNameAndTypeIndex();
                 ConstantNameAndTypeInfo methodNameAndType = (ConstantNameAndTypeInfo) cp.get((int) index.getValue());
                 String methodName = Class.readStringFromConstantPool(cp, methodNameAndType.getNameIndex());
@@ -123,7 +120,6 @@ public class ConstantPool {
                 InterfaceMethodReference methodRef = new InterfaceMethodReference();
                 methodRef.setClassName(className);
                 methodRef.setConstantPool(this);
-                //methodRef.setKlass(klass);
                 U2 index = ((ConstantInterfaceMethodRefInfo) constInfo).getNameAndTypeIndex();
                 ConstantNameAndTypeInfo methodNameAndType = (ConstantNameAndTypeInfo) cp.get((int) index.getValue());
                 String methodName = Class.readStringFromConstantPool(cp, methodNameAndType.getNameIndex());

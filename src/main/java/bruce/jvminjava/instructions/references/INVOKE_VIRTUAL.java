@@ -9,6 +9,7 @@ import bruce.jvminjava.rtda.heap.ConstantPool;
 import bruce.jvminjava.rtda.heap.Method;
 import bruce.jvminjava.rtda.heap.MethodReference;
 import bruce.jvminjava.rtda.heap.Object;
+import bruce.jvminjava.rtda.heap.StringPool;
 
 public class INVOKE_VIRTUAL extends Index16Instruction{
 
@@ -71,6 +72,11 @@ public class INVOKE_VIRTUAL extends Index16Instruction{
             break;
         case "(D)V":
             System.out.println(stack.popDouble());
+            break;
+        case "(Ljava/lang/String;)V":
+            Object jStr = stack.popRef();
+            String str = StringPool.INSTANCE.originString(jStr);
+            System.out.println(str);
             break;
         default:
             System.out.println(descriptor);

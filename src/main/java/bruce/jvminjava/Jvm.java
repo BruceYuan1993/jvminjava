@@ -7,7 +7,7 @@ import bruce.jvminjava.rtda.heap.Method;
 
 public class Jvm {
 	public void start(){
-	    String className = "bruce.jvminjava.BubbleSortTest";
+	    String className = "bruce.jvminjava.PrintArgs";
 	    Classpath classPath = new Classpath("C:\\Program Files\\Java\\jre1.8.0_211","D:\\jvm\\jvminjava\\target\\classes");
 	    ClassLoader classLaoder = new ClassLoader(classPath);
 	    
@@ -16,7 +16,8 @@ public class Jvm {
 	    Method mainMethod = mainClass.getMainMethod();
 	    if (mainMethod != null) {
             Interpreter interpreter = new Interpreter();
-            interpreter.interpret(mainMethod);
+            String[] args = new String[] {"代理模式","文章目录"};
+            interpreter.interpret(mainMethod, args);
   	    } else {
 	        System.out.println("Main method not found in class " + className);
 	    }
