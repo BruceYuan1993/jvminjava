@@ -10,7 +10,7 @@ public class IFNONNULL extends BranchInstruction{
     public void execute(Frame frame) {
         // TODO Auto-generated method stub
         Object ref = frame.getOperandStack().popRef();
-        if (ref == null) {
+        if (ref != null) {
             BranchLogic.branch(frame, getOffset());
         }
     }

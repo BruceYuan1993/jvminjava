@@ -1,7 +1,5 @@
 package bruce.jvminjava.instructions;
 
-import bruce.jvminjava.instructions.array.ANEW_ARRAY;
-import bruce.jvminjava.instructions.array.ARRAY_LENGTH;
 import bruce.jvminjava.instructions.array.*;
 import bruce.jvminjava.instructions.base.*;
 import bruce.jvminjava.instructions.comparisons.*;
@@ -11,23 +9,9 @@ import bruce.jvminjava.instructions.coversions.*;
 import bruce.jvminjava.instructions.extended.*;
 import bruce.jvminjava.instructions.loads.*;
 import bruce.jvminjava.instructions.math.*;
-import bruce.jvminjava.instructions.references.CHECK_CAST;
-import bruce.jvminjava.instructions.references.GET_FIELD;
-import bruce.jvminjava.instructions.references.GET_STATIC;
-import bruce.jvminjava.instructions.references.INSTANCE_OF;
-import bruce.jvminjava.instructions.references.INVOKE_INTERFACE;
-import bruce.jvminjava.instructions.references.INVOKE_SPECIAL;
-import bruce.jvminjava.instructions.references.INVOKE_STATIC;
-import bruce.jvminjava.instructions.references.INVOKE_VIRTUAL;
-import bruce.jvminjava.instructions.references.LDC;
-import bruce.jvminjava.instructions.references.LDC2_W;
-import bruce.jvminjava.instructions.references.LDC_W;
-import bruce.jvminjava.instructions.references.NEW;
-import bruce.jvminjava.instructions.references.PUT_FIELD;
-import bruce.jvminjava.instructions.references.PUT_STATIC;
+import bruce.jvminjava.instructions.references.*;
 import bruce.jvminjava.instructions.stack.*;
 import bruce.jvminjava.instructions.stores.*;
-
 
 public class InstructionFactory {
     public static Instruction newInstruction(short opCode) {
@@ -68,12 +52,12 @@ public class InstructionFactory {
             return new BIPUSH();
         case 0x11:
             return new SIPUSH();
-         case 0x12:
-          return new LDC();
-         case 0x13:
-          return new LDC_W();
-         case 0x14:
-          return new LDC2_W();
+        case 0x12:
+            return new LDC();
+        case 0x13:
+            return new LDC_W();
+        case 0x14:
+            return new LDC2_W();
         case 0x15:
             return new ILOAD();
         case 0x16:
@@ -124,22 +108,22 @@ public class InstructionFactory {
             return new ALOAD_2();
         case 0x2d:
             return new ALOAD_3();
-         case 0x2e:
-          return new IALOAD();
-         case 0x2f:
-          return new LALOAD();
-         case 0x30:
-          return new FALOAD();
-         case 0x31:
-          return new DALOAD();
-         case 0x32:
-          return new AALOAD();
-         case 0x33:
-          return new BALOAD();
-         case 0x34:
-          return new CALOAD();
-         case 0x35:
-          return new SALOAD();
+        case 0x2e:
+            return new IALOAD();
+        case 0x2f:
+            return new LALOAD();
+        case 0x30:
+            return new FALOAD();
+        case 0x31:
+            return new DALOAD();
+        case 0x32:
+            return new AALOAD();
+        case 0x33:
+            return new BALOAD();
+        case 0x34:
+            return new CALOAD();
+        case 0x35:
+            return new SALOAD();
         case 0x36:
             return new ISTORE();
         case 0x37:
@@ -190,22 +174,22 @@ public class InstructionFactory {
             return new ASTORE_2();
         case 0x4e:
             return new ASTORE_3();
-         case 0x4f:
-          return new IASTORE();
-         case 0x50:
-          return new LASTORE();
-         case 0x51:
-          return new FASTORE();
-         case 0x52:
-          return new DASTORE();
-         case 0x53:
-          return new AASTORE();
-         case 0x54:
-          return new BASTORE();
-         case 0x55:
-          return new CASTORE();
-         case 0x56:
-          return new SASTORE();
+        case 0x4f:
+            return new IASTORE();
+        case 0x50:
+            return new LASTORE();
+        case 0x51:
+            return new FASTORE();
+        case 0x52:
+            return new DASTORE();
+        case 0x53:
+            return new AASTORE();
+        case 0x54:
+            return new BASTORE();
+        case 0x55:
+            return new CASTORE();
+        case 0x56:
+            return new SASTORE();
         case 0x57:
             return new POP();
         case 0x58:
@@ -369,65 +353,65 @@ public class InstructionFactory {
         case 0xa7:
             return new GOTO();
         // case 0xa8:
-        //  return new JSR();
+        // return new JSR();
         // case 0xa9:
-        //  return new RET();
+        // return new RET();
         case 0xaa:
             return new TABLE_SWITCH();
         case 0xab:
             return new LOOKUP_SWITCH();
-         case 0xac:
-          return new IRETURN();
-         case 0xad:
-          return new LRETURN();
-         case 0xae:
-          return new FRETURN();
-         case 0xaf:
-          return new DRETURN();
-         case 0xb0:
-          return new ARETURN();
-         case 0xb1:
-          return new RETURN();
-          case 0xb2:
+        case 0xac:
+            return new IRETURN();
+        case 0xad:
+            return new LRETURN();
+        case 0xae:
+            return new FRETURN();
+        case 0xaf:
+            return new DRETURN();
+        case 0xb0:
+            return new ARETURN();
+        case 0xb1:
+            return new RETURN();
+        case 0xb2:
             return new GET_STATIC();
-         case 0xb3:
-          return new PUT_STATIC();
-         case 0xb4:
+        case 0xb3:
+            return new PUT_STATIC();
+        case 0xb4:
             return new GET_FIELD();
-         case 0xb5:
-          return new PUT_FIELD();
-          case 0xb6:
-             return new INVOKE_VIRTUAL();
-         case 0xb7:
-             return new INVOKE_SPECIAL();
-         case 0xb8:
-             return new INVOKE_STATIC();
-         case 0xb9:
-             return new INVOKE_INTERFACE();
+        case 0xb5:
+            return new PUT_FIELD();
+        case 0xb6:
+            return new INVOKE_VIRTUAL();
+        case 0xb7:
+            return new INVOKE_SPECIAL();
+        case 0xb8:
+            return new INVOKE_STATIC();
+        case 0xb9:
+            return new INVOKE_INTERFACE();
         // case 0xba:
-        //  return new INVOKE_DYNAMIC();
-         case 0xbb:
-          return new NEW();
-         case 0xbc:
-          return new NEW_ARRAY();
-         case 0xbd:
-          return new ANEW_ARRAY();
-         case 0xbe:
-          return new ARRAY_LENGTH();
+        //  return &INVOKE_DYNAMIC{}
+        case 0xbb:
+            return new NEW();
+        case 0xbc:
+            return new NEW_ARRAY();
+        case 0xbd:
+            return new ANEW_ARRAY();
+        case 0xbe:
+            return new ARRAY_LENGTH();
         // case 0xbf:
-        //  return athrow
-         case 0xc0:
-          return new CHECK_CAST();
-         case 0xc1:
-          return new INSTANCE_OF();
+        // return athrow
+        case 0xc0:
+            return new CHECK_CAST();
+        case 0xc1:
+            return new INSTANCE_OF();
         // case 0xc2:
-        //  return monitorenter
+        // return monitorenter
         // case 0xc3:
-        //  return monitorexit
+        // return monitorexit
         case 0xc4:
             return new WIDE();
-         case 0xc5:
-          return new MULTI_ANEW_ARRAY();
+        case 0xc5:
+            return new MULTI_ANEW_ARRAY();
         case 0xc6:
             return new IFNULL();
         case 0xc7:
@@ -435,9 +419,10 @@ public class InstructionFactory {
         case 0xc8:
             return new GOTO_W();
         // case 0xc9:
-        //  return new JSR_W();
+        // return new JSR_W();
         // case 0xca: breakpoint
-        // case 0xfe: impdep1
+        case 0xfe:
+            return new INVOKE_NATIVE();
         // case 0xff: impdep2
         default:
             throw new RuntimeException("Unsupported opcode: " + opCode);

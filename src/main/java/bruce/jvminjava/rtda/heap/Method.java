@@ -39,4 +39,32 @@ public class Method extends ClassMember{
         // TODO Auto-generated method stub
         return 0 != (getAccessFlags() & ACC_NATIVE);
     }
+    
+    
+    void injectCodeAttribute(String returnType) {
+        this.maxStack = 4;
+        this.maxLocals = argSlotCount;
+        
+        switch (returnType.charAt(0)) {
+            case 'V':
+                code = new byte[]{(byte) 0xfe, (byte) 0xb1}; // return
+                break;
+            case 'L':
+            case '[':
+                code = new byte[]{(byte) 0xfe, (byte) 0xb0}; // areturn
+                break;
+            case 'D':
+                code = new byte[]{(byte) 0xfe, (byte) 0xaf}; // dreturn
+                break;
+            case 'F':
+                code = new byte[]{(byte) 0xfe, (byte) 0xae}; // freturn
+                break;
+            case 'J':
+                code = new byte[]{(byte) 0xfe, (byte) 0xad}; // lreturn
+                break;
+            default:
+                code = new byte[]{(byte) 0xfe, (byte) 0xac}; // ireturn
+                break;
+        }
+    }
 }

@@ -22,13 +22,13 @@ public class MethodInvokeLogic {
             }
         }
         
-        if (method.isNative()) {
-            if ("registerNatives".equals(method.getName())) {
-                thread.popFrame();
-            } else {
-                throw new RuntimeException("Native method");
-            }
-        }
+//        if (method.isNative()) {
+//            if ("registerNatives".equals(method.getName())) {
+//                thread.popFrame();
+//            } else {
+//                throw new RuntimeException("Native method");
+//            }
+//        }
     }
     
     public static Method lookupMethodInClass(Class klass, String name, String descriptor) {

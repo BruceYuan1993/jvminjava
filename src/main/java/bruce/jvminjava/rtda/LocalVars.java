@@ -65,4 +65,8 @@ public class LocalVars {
         // TODO Auto-generated method stub
         vars[index] = slot;
     }
+    
+    public Object getThis() {
+        return getRef(0);
+    }
 }

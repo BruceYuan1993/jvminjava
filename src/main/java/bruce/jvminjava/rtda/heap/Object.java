@@ -4,7 +4,8 @@ package bruce.jvminjava.rtda.heap;
 public class Object {
     protected Class klass;
     protected java.lang.Object data;
-    
+    private java.lang.Object extra;
+
     public Object(Class klass, java.lang.Object data) {
         this.klass = klass;
         this.data = data;
@@ -38,5 +39,13 @@ public class Object {
         Field f = this.getKlass().getField(name, descriptor, false);
         Slots slots = (Slots) this.data; 
         return slots.getRef(f.getSlotId());
+    }
+    
+    public java.lang.Object getExtra() {
+        return extra;
+    }
+
+    public void setExtra(java.lang.Object extra) {
+        this.extra = extra;
     }
 }

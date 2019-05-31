@@ -40,7 +40,7 @@ public class INVOKE_VIRTUAL extends Index16Instruction{
             throw new RuntimeException("IllegalAccessError");
         }
         
-        Method methodToBeInvoked =  MethodInvokeLogic.lookupMethodInClass(currentClass, methodRef.getName(),
+        Method methodToBeInvoked =  MethodInvokeLogic.lookupMethodInClass(methodRef.getKlass(), methodRef.getName(),
                 methodRef.getDescriptor());
         
         if (methodToBeInvoked == null || methodToBeInvoked.isAbstract()) {

@@ -97,4 +97,18 @@ public class OperandStack {
         // TODO Auto-generated method stub
         return slots[size -1 - n].getRef();
     }
+    
+    
+    public void pushBoolean(boolean val) {
+        if (val) {
+            this.pushInt(1);
+        } else {
+            this.pushInt(0);
+        }
+    }
+    
+    public boolean popBoolean() {
+        return this.popInt() == 1;
+    }
+
 }

@@ -1,6 +1,7 @@
 package bruce.jvminjava.instructions;
 
 import bruce.jvminjava.instructions.base.BytecodeReader;
+import bruce.jvminjava.instructions.base.Index16Instruction;
 import bruce.jvminjava.instructions.base.Instruction;
 import bruce.jvminjava.rtda.Frame;
 import bruce.jvminjava.rtda.Thread;
@@ -24,8 +25,8 @@ public class Interpreter {
         try {
             loop(thread);
         } catch (Exception e) {
-            e.printStackTrace();
             logFrames(thread);
+            e.printStackTrace();
         }
     }
     
@@ -46,8 +47,13 @@ public class Interpreter {
             frame.setNextPC(reader.getPc());
 //            logInstruction(frame, inst);
             
+//            int index = 0;
+//            if (inst instanceof Index16Instruction) {
+//                index = ((Index16Instruction) inst).getIndex();
+//            }
 //            System.out.printf("stack:%2d\n", frame.getOperandStack().getSize());
-//            System.out.printf("pc:%2d inst:%s\n", pc, inst.getClass().getSimpleName());
+//            System.out.printf("pc:%2d inst:%s", pc, inst.getClass().getSimpleName() + " {{" + index + "}}\n");
+//            
             
             inst.execute(frame);
             

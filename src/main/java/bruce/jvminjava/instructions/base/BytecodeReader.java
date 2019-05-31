@@ -28,7 +28,10 @@ public class BytecodeReader {
     public int readInt16() {
         byte byte1 = code[pc++];
         byte byte2 = code[pc++];
-        return (byte1 << 8)|byte2;
+        
+        int u1 = byte1 & 0xff;
+        int u2 = byte2 & 0xff;
+        return (u1 << 8)|u2;
     }
     
     public long readInt32() {

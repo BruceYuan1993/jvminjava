@@ -3,6 +3,7 @@ package bruce.jvminjava.instructions.references;
 import bruce.jvminjava.rtda.Frame;
 import bruce.jvminjava.rtda.OperandStack;
 import bruce.jvminjava.rtda.heap.Class;
+import bruce.jvminjava.rtda.heap.ClassReference;
 import bruce.jvminjava.rtda.heap.ConstantPool;
 import bruce.jvminjava.rtda.heap.StringPool;
 
@@ -25,6 +26,10 @@ public class Util {
             String originStr = (String)c;
             bruce.jvminjava.rtda.heap.Object str = StringPool.INSTANCE.jString(klass.getLoader(), originStr);
             stack.pushRef(str);
+        } else if (c.getClass() == ClassReference.class) {
+            ClassReference classRef = (ClassReference) c;
+            bruce.jvminjava.rtda.heap.Object jClass = classRef.resolvedClass().getJClass();
+            stack.pushRef(jClass);
         } else {
             throw new RuntimeException("Unsupport Type");
         }

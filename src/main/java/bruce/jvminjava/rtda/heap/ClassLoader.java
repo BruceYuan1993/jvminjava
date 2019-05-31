@@ -17,16 +17,59 @@ public class ClassLoader {
         //classPath = new Classpath(jreOption, cpOption)
         this.classpath = classpath;
         classMap = new HashMap<>();
+        
+        loadBasicClasses();
+        loadPrimitiveClasses();
+    }
+    
+    private void loadBasicClasses() {
+        Class jlClassClass = loadClass("java/lang/Class");
+        for (Class klass : classMap.values()) {
+            if (klass.getJClass() != null) {
+                klass.setJClass(jlClassClass.newObject());
+                klass.getJClass().setExtra(klass);
+            }
+        }
+    }
+    
+    private void loadPrimitiveClasses() {
+        for (String name: Class.primitiveTypes.keySet()) {
+            loadPrimitiveClass(name);
+        }
+    }
+    
+    private void loadPrimitiveClass(String className) {
+        Class klass = new Class();
+        klass.setAccessFlags(AccessFlags.ACC_PUBLIC);
+        klass.setName(className);
+        klass.setLoader(this);
+        klass.startInit();
+        
+        Class jlClassClass = loadClass("java/lang/Class");
+        klass.setJClass(jlClassClass.newObject());
+        klass.getJClass().setExtra(klass);
+        
+        this.classMap.put(className, klass);
     }
     
     public Class loadClass(String name) {
         if (this.classMap.containsKey(name)) {
             return this.classMap.get(name);
         }
+        Class klass = null;
         if (name.charAt(0) == '[') {
-            return loadArrayClass(name);
+            klass = loadArrayClass(name);
+        } else {
+            klass = loadNonArrayClass(name);
         }
-        return loadNonArrayClass(name);
+        
+        if (classMap.containsKey("java/lang/Class")) {
+            Class jlClassClass = classMap.get("java/lang/Class");
+            klass.setJClass(jlClassClass.newObject());
+            klass.getJClass().setExtra(klass);
+        }
+        
+        return klass;
     }
 
     private Class loadArrayClass(String name) {
@@ -50,7 +93,7 @@ public class ClassLoader {
         try {
             Class klass = defineClass(readClass(name));
             link(klass);
-            System.out.println("Load " +  name);
+            // System.out.println("Load " +  name);
             return klass; 
         } catch (Exception e) {
             System.out.println("Load failed: " + name);

@@ -206,16 +206,22 @@ public class Class {
                 m.setMaxStack((int)codeAttr.getMaxStack().getValue());
                 m.setCode(ClassFileHelper.converCodeListToBytes(codeAttr.getCodes()));
             }
-            m.setArgSlotCount(calcArgSlotCount(m));
+            
+            MethodDescriptorParser parser = new MethodDescriptorParser();
+            MethodDescriptor parsedDescriptor = parser.parse(m.getDescriptor());
+            m.setArgSlotCount(calcArgSlotCount(m, parsedDescriptor));
+            
+            if (m.isNative()) {
+                m.injectCodeAttribute(parsedDescriptor.getReturnType());
+            }
             methods.add(m);
         }
         return methods;
     }
     
-    public int calcArgSlotCount(Method method) {
+    public int calcArgSlotCount(Method method, MethodDescriptor parsedDescriptor) {
         int argSlotCount = 0;
-        MethodDescriptorParser parser = new MethodDescriptorParser();
-        MethodDescriptor parsedDescriptor = parser.parse(method.getDescriptor());
+
         for (String paramType : parsedDescriptor.getParameterTypes()) {
             argSlotCount++;
             if (paramType.equals("J") || paramType.equals("D")) {
@@ -418,7 +424,7 @@ public class Class {
     }
 
     
-    private static Map<String, String> primitiveTypes = new HashMap<>();
+    public static Map<String, String> primitiveTypes = new HashMap<>();
     static {
         primitiveTypes.put("void", "V");
         primitiveTypes.put("boolean", "Z");
@@ -493,5 +499,20 @@ public class Class {
             }
         }
         return null;
+    }
+    
+    private Object jClass;
+
+    public Object getJClass() {
+        return jClass;
+    }
+
+    public void setJClass(Object jClass) {
+        this.jClass = jClass;
+    }
+
+    public String getJavaName() {
+        // TODO Auto-generated method stub
+        return name.replace("/",".");
     }
 }
