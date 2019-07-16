@@ -7,7 +7,7 @@ import bruce.jvminjava.rtda.heap.Method;
 
 public class Jvm {
 	public void start(){
-	    String className = "bruce.jvminjava.GetClassTest";
+	    String className = "bruce.jvminjava.StringTest";
 	    Classpath classPath = new Classpath("C:\\Program Files\\Java\\jre1.8.0_211","D:\\jvm\\jvminjava\\target\\classes");
 	    ClassLoader classLaoder = new ClassLoader(classPath);
 	    

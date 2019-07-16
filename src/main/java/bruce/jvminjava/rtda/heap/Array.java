@@ -4,7 +4,9 @@ public class Array extends Object{
     public Array(Class klass, java.lang.Object data) {
         super(klass, data);
     }
-
+    public java.lang.Object getData() {
+        return data;
+    }
     public byte[] getBytes() {
         return (byte[])data;
     }

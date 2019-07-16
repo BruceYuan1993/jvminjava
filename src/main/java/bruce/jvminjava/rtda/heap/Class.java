@@ -515,4 +515,12 @@ public class Class {
         // TODO Auto-generated method stub
         return name.replace("/",".");
     }
+    
+    
+    public boolean isPrimitive() {
+        if (primitiveTypes.containsKey(this.name)) {
+            return true;
+        }
+        return false;
+    }
 }

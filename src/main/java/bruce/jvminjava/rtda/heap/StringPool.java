@@ -25,4 +25,15 @@ public enum StringPool {
         Object charArr = jStr.getRefVar("value", "[C");
         return new String(((Array)charArr).getChars());
     }
+
+    public Object internString(Object jStr) {
+        String originStr = originString(jStr);
+        
+        if (internedStrings.containsKey(originStr)) {
+            return internedStrings.get(originStr);
+        }
+        
+        internedStrings.put(originStr, jStr);
+        return jStr;
+    }
 }
